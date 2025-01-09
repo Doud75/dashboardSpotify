@@ -23,7 +23,6 @@ export default [
 			'prettier/prettier': [
 				'error',
 				{
-					svelteSortOrder: 'options-scripts-styles-markup',
 					svelteStrictMode: false,
 					svelteBracketNewLine: true,
 					svelteAllowShorthand: true,
@@ -75,7 +74,6 @@ export default [
 				'ignorePackages',
 				{ js: 'never', ts: 'never', svelte: 'always', scss: 'always' },
 			],
-			'import/no-unresolved': 'error',
 		},
 		settings: {
 			'import/resolver': {

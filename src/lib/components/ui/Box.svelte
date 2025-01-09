@@ -3,6 +3,10 @@
 	export let animation = '';
 </script>
 
+<div class="box {animation}" {style}>
+	<slot />
+</div>
+
 <style lang="scss">
 	@use 'sass:map';
 	@use '@/styles/variables' as vars;
@@ -29,7 +33,3 @@
 		}
 	}
 </style>
-
-<div class="box {animation}" {style}>
-	<slot />
-</div>
