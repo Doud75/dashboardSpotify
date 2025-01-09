@@ -18,5 +18,6 @@ export const API_URLS = {
 		filteredData: '/get-filtered-data/',
 		age: '/age-stats/',
 		top: '/top-stats/',
+		summary: '/summary-stats/',
 	},
 };

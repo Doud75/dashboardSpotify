@@ -8,3 +8,7 @@ export const getFilteredData = async () => {
 export const getTopStats = async () => {
 	return await httpClient(API_URLS.stats.top);
 };
+
+export const getSummaryStats = async () => {
+	return await httpClient(API_URLS.stats.summary);
+};

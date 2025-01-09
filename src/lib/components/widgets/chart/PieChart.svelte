@@ -7,6 +7,7 @@
 
 	export let data = {};
 	export let options = {};
+	export let title;
 
 	let canvas;
 	let chart;
@@ -39,6 +40,9 @@
 </script>
 
 <Box>
+	{#if title}
+		<h3>{title}</h3>
+	{/if}
 	<div class="canvas-container">
 		<canvas bind:this={canvas} use:createChart></canvas>
 	</div>
