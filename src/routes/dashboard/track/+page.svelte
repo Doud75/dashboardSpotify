@@ -1,24 +1,108 @@
 <script>
-	import { mockStats } from './mockData.js';
+	import { onMount } from 'svelte';
 	import InfoBox from '$lib/components/trackComponents/InfoBox.svelte';
 	import Leaderboard from '$lib/components/trackComponents/Leaderboard.svelte';
-	import { onMount } from 'svelte';
-	import { getTopStats } from '$lib/services/api/dataStats.api.Ts'; // Import de la fonction
+	import PolarAreaChart from '@/lib/components/widgets/chart/PolarAreaChart.svelte';
 
-	let stats = null; // Les données de l'API
+	import { getTopStats } from '$lib/services/api/dataStats.api.ts';
+	import { getStatsByLanguage } from '@/lib/services/api/musicStats.api.ts';
+
+	let topStats = null; // Données pour les chansons/artistes
+	let topLanguages = null; // Données par langue
 	let isLoading = true;
 
-	// Fonction pour récupérer les données via getTopStats
+	let chartDataPopularity = null; // Données pour le PolarAreaChart
+	let danceabilityChartData;
+
+	// Fonction pour récupérer les données de l'API
 	async function fetchStats() {
 		try {
-			stats = await getTopStats();
-			console.log('Données récupérées depuis getTopStats :', stats);
+			topStats = await getTopStats();
+			topLanguages = await getStatsByLanguage();
+
+			if (topLanguages) {
+				chartDataPopularity = {
+					labels: Object.keys(topLanguages.stats_by_language),
+					datasets: [
+						{
+							label: 'Popularité moyenne par langue',
+							data: Object.values(topLanguages.stats_by_language).map((lang) => lang.average_popularity),
+							backgroundColor: [
+								'rgba(255, 99, 132, 0.5)',
+								'rgba(54, 162, 235, 0.5)',
+								'rgba(255, 206, 86, 0.5)',
+								'rgba(75, 192, 192, 0.5)',
+								'rgba(153, 102, 255, 0.5)',
+								'rgba(255, 159, 64, 0.5)',
+								'rgba(199, 199, 199, 0.5)',
+							],
+							borderColor: [
+								'rgba(255, 99, 132, 1)',
+								'rgba(54, 162, 235, 1)',
+								'rgba(255, 206, 86, 1)',
+								'rgba(75, 192, 192, 1)',
+								'rgba(153, 102, 255, 1)',
+								'rgba(255, 159, 64, 1)',
+								'rgba(199, 199, 199, 1)',
+							],
+							borderWidth: 1,
+						},
+					],
+				};
+
+				danceabilityChartData = {
+					labels: Object.keys(topLanguages.stats_by_language),
+					datasets: [
+						{
+							label: 'Dansabilité moyenne par langue',
+							data: Object.values(topLanguages.stats_by_language).map(
+								(lang) => lang.average_danceability
+							),
+							backgroundColor: [
+								'rgba(54, 162, 235, 0.5)',
+								'rgba(255, 99, 132, 0.5)',
+								'rgba(255, 206, 86, 0.5)',
+								'rgba(75, 192, 192, 0.5)',
+								'rgba(153, 102, 255, 0.5)',
+								'rgba(255, 159, 64, 0.5)',
+								'rgba(199, 199, 199, 0.5)',
+							],
+							borderColor: [
+								'rgba(54, 162, 235, 1)',
+								'rgba(255, 99, 132, 1)',
+								'rgba(255, 206, 86, 1)',
+								'rgba(75, 192, 192, 1)',
+								'rgba(153, 102, 255, 1)',
+								'rgba(255, 159, 64, 1)',
+								'rgba(199, 199, 199, 1)',
+							],
+							borderWidth: 1,
+						},
+					],
+				};
+			}
+
+			console.log('ChartData correctly initialized:', chartDataPopularity);
 		} catch (error) {
 			console.error('Erreur lors de la récupération des données :', error);
 		} finally {
 			isLoading = false;
 		}
 	}
+	let polarAreaChartOptions = {
+		scales: {
+			r: {
+				min: 0.4, // Définit la valeur minimale de l'échelle
+			},
+		},
+		plugins: {
+			legend: {
+				display: true,
+			},
+		},
+		responsive: true,
+		maintainAspectRatio: false,
+	};
 
 	// Appeler l'API au montage du composant
 	onMount(() => {
@@ -41,12 +125,12 @@
 			<div class="header">
 				<InfoBox
 					title="Chanson la plus populaire"
-					data={`${stats.top_10_songs[0].track_name} by ${stats.top_10_songs[0].artist_name}`}
+					data={`${topStats.top_10_songs[0].track_name} by ${topStats.top_10_songs[0].artist_name}`}
 				/>
-				<InfoBox title="Langue la plus populaire" data={stats.most_popular_language} />
+				<InfoBox title="Langue la plus populaire" data="English" />
 				<InfoBox
 					title="Chanson la plus dansante"
-					data={`${stats.top_10_artists[0].track_name} by ${stats.top_10_songs[0].artist_name}`}
+					data={`${topStats.top_10_danceable_songs[0].track_name} by ${topStats.top_10_danceable_songs[0].artist_name}`}
 				/>
 			</div>
 
@@ -55,12 +139,20 @@
 				<!-- Deux blocs côte à côte -->
 				<div class="main-top">
 					<div class="block">
-						<h3>Premier bloc</h3>
-						<p>Contenu du premier bloc (ex : graphique, texte, etc.).</p>
+						<h3>Popularité par langue</h3>
+						{#if chartDataPopularity}
+							<PolarAreaChart data={chartDataPopularity} />
+						{:else}
+							<p>Aucune donnée disponible pour le graphique.</p>
+						{/if}
 					</div>
 					<div class="block">
-						<h3>Deuxième bloc</h3>
-						<p>Contenu du deuxième bloc (ex : graphique, texte, etc.).</p>
+						<h3>Dansabilité par langue</h3>
+						{#if chartDataPopularity}
+							<PolarAreaChart data={danceabilityChartData} options={polarAreaChartOptions} />
+						{:else}
+							<p>Aucune donnée disponible pour le graphique.</p>
+						{/if}
 					</div>
 				</div>
 
@@ -74,7 +166,7 @@
 
 		<!-- Sidebar : Leaderboard -->
 		<div class="sidebar">
-			<Leaderboard title="Top 10 chansons populaires" data={stats.top_10_songs} />
+			<Leaderboard title="Top 10 chansons populaires" data={topStats.top_10_songs} />
 		</div>
 	</div>
 {/if}
