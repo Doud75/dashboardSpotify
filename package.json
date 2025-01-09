@@ -41,6 +41,7 @@
 		"vitest": "^2.1.8"
 	},
 	"dependencies": {
-		"chart.js": "^4.4.7"
+		"chart.js": "^4.4.7",
+		"lucide-svelte": "^0.469.0"
 	}
 }

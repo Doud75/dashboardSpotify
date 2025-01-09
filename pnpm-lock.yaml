@@ -11,6 +11,9 @@ importers:
       chart.js:
         specifier: ^4.4.7
         version: 4.4.7
+      lucide-svelte:
+        specifier: ^0.469.0
+        version: 0.469.0(svelte@5.17.2)
     devDependencies:
       '@eslint/compat':
         specifier: ^1.2.4
@@ -1537,6 +1540,11 @@ packages:
 
   loupe@3.1.2:
     resolution: {integrity: sha512-23I4pFZHmAemUnz8WZXbYRSKYj801VDaNv9ETuMh7IrMc7VuVVSo+Z9iLE3ni30+U48iDWfi30d3twAXBYmnCg==}
+
+  lucide-svelte@0.469.0:
+    resolution: {integrity: sha512-PMIJ8jrFqVUsXJz4d1yfAQplaGhNOahwwkzbunha8DhpiD73xqX24n8dE1dPpUk3vcrdWVsHc1y/liHHotOnGQ==}
+    peerDependencies:
+      svelte: ^3 || ^4 || ^5.0.0-next.42
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -3572,6 +3580,10 @@ snapshots:
   lodash.merge@4.6.2: {}
 
   loupe@3.1.2: {}
+
+  lucide-svelte@0.469.0(svelte@5.17.2):
+    dependencies:
+      svelte: 5.17.2
 
   magic-string@0.30.17:
     dependencies:
