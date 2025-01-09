@@ -7,14 +7,14 @@
 	import { getTopStats } from '$lib/services/api/dataStats.api.ts';
 	import { getStatsByLanguage, getStatsByPopularity } from '@/lib/services/api/musicStats.api.ts';
 
-	let topStats = null; // Données pour les chansons/artistes
-	let topLanguages = null; // Données par langue
+	let topStats = null;
+	let topLanguages = null;
 	let isLoading = true;
-	let popularityByAccousticness = null; // Données pour le bar chart
-	let chartDataPopularity = null; // Données pour le PolarAreaChart
-	let danceabilityChartData;
+	let popularityByAccousticness = null;
+	let chartDataPopularity = null;
+	let danceabilityChartData = null;
+	let mostPopularLanguage = null;
 
-	// Fonction pour récupérer les données de l'API
 	async function fetchStats() {
 		try {
 			topStats = await getTopStats();
@@ -82,7 +82,10 @@
 					],
 				};
 			}
+			const maxValue = Math.max(...chartDataPopularity.datasets[0].data);
 
+			const maxIndex = chartDataPopularity.datasets[0].data.indexOf(maxValue);
+			mostPopularLanguage = chartDataPopularity.labels[maxIndex];
 			console.log('ChartData correctly initialized:', chartDataPopularity);
 		} catch (error) {
 			console.error('Erreur lors de la récupération des données :', error);
@@ -155,7 +158,7 @@
 					title="Chanson la plus populaire"
 					data={`${topStats.top_10_songs[0].track_name} by ${topStats.top_10_songs[0].artist_name}`}
 				/>
-				<InfoBox title="Langue la plus populaire" data="English" />
+				<InfoBox title="Langue la plus populaire" data={mostPopularLanguage} />
 				<InfoBox
 					title="Chanson la plus dansante"
 					data={`${topStats.top_10_danceable_songs[0].track_name} by ${topStats.top_10_danceable_songs[0].artist_name}`}
