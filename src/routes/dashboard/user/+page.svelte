@@ -1,17 +1,62 @@
 <script>
 	import TextCard from '@/lib/components/ui/TextCard.svelte';
+	import BarChart from '@/lib/components/widgets/chart/BarChart.svelte';
+	import DoughnutChart from '@/lib/components/widgets/chart/DoughnutChart.svelte';
+	import PieChart from '@/lib/components/widgets/chart/PieChart.svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
-	let genderStats = data.genderStats;
-	let ageStats = data.ageStats;
 	let premiumStats = data.premiumStats;
-	console.log(genderStats);
-	console.log(ageStats);
-	console.log(premiumStats);
+	let ageBarChartData = data.ageBarChartData;
+	let planDonutChartData = data.planDonutChartData;
+	let genderPieChartData = data.genderPieChartData;
 
 	const totalNb = premiumStats.plan_distribution.Free.count + premiumStats.plan_distribution.Premium.count;
 	const totalPremium = premiumStats.plan_distribution.Premium.count;
+
+	const barChartOptions = {
+		scales: {
+			y: {
+				beginAtZero: true,
+				max: 100,
+				title: {
+					display: true,
+					text: 'Pourcentage (%)',
+				},
+			},
+		},
+		plugins: {
+			legend: {
+				position: 'bottom',
+			},
+		},
+	};
+
+	const planDonutChartOptions = {
+		plugins: {
+			legend: {
+				display: true,
+				position: 'bottom',
+			},
+			title: {
+				display: true,
+				text: 'Distribution des abonnements',
+			},
+		},
+	};
+
+	const genderPieChartOptions = {
+		plugins: {
+			legend: {
+				display: true,
+				position: 'bottom',
+			},
+			title: {
+				display: true,
+				text: 'Distribution par genre',
+			},
+		},
+	};
 </script>
 
 <div class="dashboard">
@@ -29,10 +74,18 @@
 			value="{totalPremium} M"
 			description="Augmentation de 10%"
 		/>
-		<div class="span-1-3"></div>
-		<div class="span-1-3"></div>
-		<div class="span-2-4"></div>
-		<div class="span-2-2"></div>
+		<div class="span-1-3">
+			<DoughnutChart data={planDonutChartData} options={planDonutChartOptions} />
+		</div>
+		<div class="span-1-3">
+			<PieChart data={genderPieChartData} options={genderPieChartOptions} />
+		</div>
+		<div class="span-2-4">
+			<BarChart data={ageBarChartData} options={barChartOptions} />
+		</div>
+		<div class="span-2-2">
+			<BarChart data={ageBarChartData} options={barChartOptions} />
+		</div>
 	</div>
 </div>
 
@@ -54,27 +107,18 @@
 		gap: 1.5rem; // gap-6 equivalent
 		grid-auto-rows: minmax(100px, auto);
 
-		.span-1-1 {
-			grid-column: span 1;
-			grid-row: span 1;
-			background-color: #1db954;
-		}
-
 		.span-2-2 {
 			grid-column: span 2;
 			grid-row: span 2;
-			background-color: #1db954;
 		}
 
 		.span-2-4 {
 			grid-column: span 2;
 			grid-row: span 4;
-			background-color: #1db954;
 		}
 		.span-1-3 {
 			grid-column: span 1;
 			grid-row: span 3;
-			background-color: #1db954;
 		}
 	}
 </style>
