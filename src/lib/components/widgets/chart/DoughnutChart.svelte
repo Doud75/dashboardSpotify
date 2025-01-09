@@ -1,31 +1,53 @@
 <script>
-	import Box from '@/lib/components/ui/Box.svelte';
 	import { onMount } from 'svelte';
+	import Box from '@/lib/components/ui/Box.svelte';
 	import { Chart, DoughnutController, ArcElement, Tooltip, Legend } from 'chart.js';
 
 	Chart.register(DoughnutController, ArcElement, Tooltip, Legend);
 
 	export let data = {};
 	export let options = {};
+
+	let canvas;
 	let chart;
 
-	onMount(() => {
-		const ctx = document.getElementById('doughnut-chart').getContext('2d');
+	function createChart(node) {
+		const ctx = node.getContext('2d');
 		chart = new Chart(ctx, {
 			type: 'doughnut',
 			data,
-			options,
+			options: {
+				...options,
+				responsive: true,
+				maintainAspectRatio: false,
+			},
 		});
-	});
+
+		return {
+			destroy() {
+				console.log('Destroying doughnut chart');
+				chart.destroy();
+			},
+		};
+	}
+
+	$: if (chart && data) {
+		chart.data = data;
+		chart.update();
+		console.log('Doughnut chart updated with new data');
+	}
 </script>
 
 <Box>
-	<canvas id="doughnut-chart"></canvas>
+	<div class="canvas-container">
+		<canvas bind:this={canvas} use:createChart></canvas>
+	</div>
 </Box>
 
 <style>
-	canvas {
-		max-width: 100%;
+	.canvas-container {
+		width: 100%;
 		height: 400px;
+		position: relative;
 	}
 </style>

@@ -16,4 +16,7 @@ export default defineConfig({
 			},
 		},
 	},
+	ssr: {
+		noExternal: ['chart.js'],
+	},
 });
