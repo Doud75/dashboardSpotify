@@ -5,10 +5,6 @@ export const getFilteredData = async () => {
 	return await httpClient(API_URLS.stats.filteredData);
 };
 
-export const getAgeStats = async () => {
-	return await httpClient(API_URLS.stats.age);
-};
-
 export const getTopStats = async () => {
 	return await httpClient(API_URLS.stats.top);
 };
