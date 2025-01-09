@@ -1,8 +1,11 @@
 <script>
+	import Box from '@/lib/components/ui/Box.svelte';
 </script>
-
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
 <style>
 </style>
+
+<Box animation="fade-in">
+	<h2>Section 1</h2>
+	<p>Contenu de la section 1.</p>
+</Box>

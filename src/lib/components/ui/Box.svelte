@@ -1,18 +1,35 @@
 <script>
 	export let style = '';
+	export let animation = '';
 </script>
 
-<div class="box" {style}>
-	<slot />
-</div>
+<style lang="scss">
+	@use 'sass:map';
+	@use '@/styles/variables' as vars;
+	@use '@/styles/mixins' as mix;
+	@use '@/styles/animations' as anim;
 
-<style>
 	.box {
-		background-color: #ffffff; /* Fond blanc */
-		border: 1px solid #e5e7eb; /* Bordure légère */
-		border-radius: 8px; /* Coins arrondis */
-		padding: 16px; /* Espacement interne */
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre douce */
-		margin-bottom: 16px; /* Espacement en bas */
+		background-color: vars.$white;
+		border-radius: 8px;
+		padding: vars.$spacing-md;
+		box-shadow: vars.$box-shadow;
+		margin-bottom: vars.$spacing-lg;
+
+		@include mix.responsive(vars.$breakpoint-mobile) {
+			padding: vars.$spacing-sm;
+		}
+
+		&.fade-in {
+			@include mix.fade-in(0.5s);
+		}
+
+		&.slide-in-bounce {
+			@include mix.slide-in-bounce(0.6s);
+		}
 	}
 </style>
+
+<div class="box {animation}" {style}>
+	<slot />
+</div>

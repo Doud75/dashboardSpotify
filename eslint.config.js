@@ -1,4 +1,5 @@
 import svelte from 'eslint-plugin-svelte';
+import svelteParser from 'svelte-eslint-parser';
 import tsParser from '@typescript-eslint/parser';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import prettierPlugin from 'eslint-plugin-prettier';
@@ -6,10 +7,12 @@ import importPlugin from 'eslint-plugin-import';
 
 export default [
 	{
+		ignores: ['node_modules/', 'dist/', '.svelte-kit/**'],
 		files: ['**/*.svelte'],
 		languageOptions: {
-			parser: tsParser,
+			parser: svelteParser, // Utilise le parser pour Svelte
 			parserOptions: {
+				parser: tsParser, // Utilise le parser TypeScript pour les blocs <script>
 				ecmaVersion: 'latest',
 				sourceType: 'module',
 				extraFileExtensions: ['.svelte'],
@@ -20,7 +23,7 @@ export default [
 			'prettier/prettier': [
 				'error',
 				{
-					svelteSortOrder: 'options-scripts-styles-markup', // Correspond à la configuration Prettier
+					svelteSortOrder: 'options-scripts-styles-markup',
 					svelteStrictMode: false,
 					svelteBracketNewLine: true,
 					svelteAllowShorthand: true,
@@ -34,8 +37,11 @@ export default [
 		files: ['**/*.ts'],
 		languageOptions: {
 			parser: tsParser,
-			ecmaVersion: 'latest',
-			sourceType: 'module',
+			parserOptions: {
+				ecmaVersion: 'latest',
+				sourceType: 'module',
+				project: './tsconfig.json',
+			},
 			globals: {
 				window: 'readonly',
 				document: 'readonly',

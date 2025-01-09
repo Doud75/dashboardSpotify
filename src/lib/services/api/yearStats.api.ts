@@ -1,5 +1,5 @@
-import { httpClient } from '@/lib/services/utils/api.utils';
 import { API_URLS } from '@/config/api.config';
+import { httpClient } from '@/lib/services/utils/api.utils';
 
 export const getYearSummary = async () => {
 	return await httpClient(API_URLS.year.summary);
