@@ -3,6 +3,7 @@
 	import BarChart from '@/lib/components/widgets/chart/BarChart.svelte';
 	import DoughnutChart from '@/lib/components/widgets/chart/DoughnutChart.svelte';
 	import PieChart from '@/lib/components/widgets/chart/PieChart.svelte';
+	import RadarChart from '@/lib/components/widgets/chart/RadarChart.svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -10,6 +11,7 @@
 	let ageBarChartData = data.ageBarChartData;
 	let planDonutChartData = data.planDonutChartData;
 	let genderPieChartData = data.genderPieChartData;
+	let satisfactionRadarChartData = data.satisfactionRadarChartData;
 
 	const totalNb = premiumStats.plan_distribution.Free.count + premiumStats.plan_distribution.Premium.count;
 	const totalPremium = premiumStats.plan_distribution.Premium.count;
@@ -57,34 +59,49 @@
 			},
 		},
 	};
+
+	const satisfactionRadarChartOptions = {
+		scales: {
+			r: {
+				beginAtZero: true,
+				max: 100,
+				ticks: {
+					stepSize: 20,
+				},
+			},
+		},
+		plugins: {
+			legend: {
+				position: 'bottom',
+			},
+			title: {
+				display: true,
+				text: "Distribution de la satisfaction par type d'abonnement",
+			},
+		},
+	};
 </script>
 
 <div class="dashboard">
 	<h1 class="dashboard-title">Statistiques utilisateurs</h1>
 	<div class="grid-container">
-		<TextCard
-			className="span-1-1"
-			title="Nombres d'utilisateurs"
-			value="{totalNb} M"
-			description="Utilisateurs actifs en 2024"
-		/>
-		<TextCard
-			className="span-1-1"
-			title="Abonnés premium"
-			value="{totalPremium} M"
-			description="Augmentation de 10%"
-		/>
+		<div class="span-2-4">
+			<BarChart data={ageBarChartData} options={barChartOptions} />
+		</div>
+		<div class="span-1-1">
+			<TextCard title="Nombres d'utilisateurs" value="{totalNb} M" description="Utilisateurs actifs en 2024" />
+		</div>
+		<div class="span-1-1">
+			<TextCard title="Abonnés premium" value="{totalPremium} M" description="Augmentation de 10%" />
+		</div>
 		<div class="span-1-3">
 			<DoughnutChart data={planDonutChartData} options={planDonutChartOptions} />
 		</div>
 		<div class="span-1-3">
 			<PieChart data={genderPieChartData} options={genderPieChartOptions} />
 		</div>
-		<div class="span-2-4">
-			<BarChart data={ageBarChartData} options={barChartOptions} />
-		</div>
 		<div class="span-2-2">
-			<BarChart data={ageBarChartData} options={barChartOptions} />
+			<RadarChart data={satisfactionRadarChartData} options={satisfactionRadarChartOptions} />
 		</div>
 	</div>
 </div>
