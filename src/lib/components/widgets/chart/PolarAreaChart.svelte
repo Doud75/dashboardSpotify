@@ -36,6 +36,9 @@
 		chart.update();
 		console.log('Polar Area chart updated with new data');
 	}
+
+	console.log('Data passed to PolarAreaChart:', data);
+
 </script>
 
 <Box>
