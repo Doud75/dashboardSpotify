@@ -3,14 +3,14 @@
 	import InfoBox from '$lib/components/trackComponents/InfoBox.svelte';
 	import Leaderboard from '$lib/components/trackComponents/Leaderboard.svelte';
 	import PolarAreaChart from '@/lib/components/widgets/chart/PolarAreaChart.svelte';
-
+	import BarChart from '@/lib/components/widgets/chart/BarChart.svelte';
 	import { getTopStats } from '$lib/services/api/dataStats.api.ts';
-	import { getStatsByLanguage } from '@/lib/services/api/musicStats.api.ts';
+	import { getStatsByLanguage, getStatsByPopularity } from '@/lib/services/api/musicStats.api.ts';
 
 	let topStats = null; // Données pour les chansons/artistes
 	let topLanguages = null; // Données par langue
 	let isLoading = true;
-
+	let popularityByAccousticness = null; // Données pour le bar chart
 	let chartDataPopularity = null; // Données pour le PolarAreaChart
 	let danceabilityChartData;
 
@@ -19,6 +19,7 @@
 		try {
 			topStats = await getTopStats();
 			topLanguages = await getStatsByLanguage();
+			popularityByAccousticness = await getStatsByPopularity();
 
 			if (topLanguages) {
 				chartDataPopularity = {
@@ -104,6 +105,33 @@
 		maintainAspectRatio: false,
 	};
 
+	$: barChartData = popularityByAccousticness
+		? {
+				labels: Object.keys(popularityByAccousticness.data), // Tranches de popularité (0-20, 20-40, etc.)
+				datasets: [
+					{
+						label: 'Acousticness moyenne',
+						data: Object.values(popularityByAccousticness.data).map((item) => item.acousticness),
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.5)',
+							'rgba(54, 162, 235, 0.5)',
+							'rgba(255, 206, 86, 0.5)',
+							'rgba(75, 192, 192, 0.5)',
+							'rgba(153, 102, 255, 0.5)',
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+						],
+						borderWidth: 1,
+					},
+				],
+			}
+		: null;
+
 	// Appeler l'API au montage du composant
 	onMount(() => {
 		fetchStats();
@@ -158,8 +186,12 @@
 
 				<!-- Nouveau bloc pour le graphique -->
 				<div class="main-bottom">
-					<h3>Graphique principal</h3>
-					<p>Contenu du graphique principal (ex : graphique interactif).</p>
+					<h3>Acousticness moyenne par tranche de popularité</h3>
+					{#if barChartData}
+						<BarChart data={barChartData} />
+					{:else}
+						<p>Aucune donnée disponible pour le graphique.</p>
+					{/if}
 				</div>
 			</div>
 		</div>
