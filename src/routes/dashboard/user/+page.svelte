@@ -6,13 +6,29 @@
 	let genderStats = data.genderStats;
 	let ageStats = data.ageStats;
 	let premiumStats = data.premiumStats;
+	console.log(genderStats);
+	console.log(ageStats);
+	console.log(premiumStats);
+
+	const totalNb = premiumStats.plan_distribution.Free.count + premiumStats.plan_distribution.Premium.count;
+	const totalPremium = premiumStats.plan_distribution.Premium.count;
 </script>
 
 <div class="dashboard">
 	<h1 class="dashboard-title">Statistiques utilisateurs</h1>
 	<div class="grid-container">
-		<TextCard className="span-1-1" title="Nombre de stream" value="1.2T" description="Derniers 12 mois" />
-		<TextCard className="span-1-1" title="Nombre de stream" value="1.2T" description="Derniers 12 mois" />
+		<TextCard
+			className="span-1-1"
+			title="Nombres d'utilisateurs"
+			value="{totalNb} M"
+			description="Utilisateurs actifs en 2024"
+		/>
+		<TextCard
+			className="span-1-1"
+			title="Abonnés premium"
+			value="{totalPremium} M"
+			description="Augmentation de 10%"
+		/>
 		<div class="span-1-3"></div>
 		<div class="span-1-3"></div>
 		<div class="span-2-4"></div>
