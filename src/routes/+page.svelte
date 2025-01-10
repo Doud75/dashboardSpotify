@@ -30,23 +30,23 @@
 <div class="container">
 	<div class="stats-grid">
 		<TextCard title="Nouveauté 2024" icon={PlayCircle}>
-			<div class="large-text">{year2024TracksCount}</div>
+			<h2>{year2024TracksCount}</h2>
 			<div class="growth-rate">
 				<span class="icon"><TrendingUp /></span>
-				<span>{growthRate}%</span>
+				<p>{growthRate}%</p>
 			</div>
 		</TextCard>
 
 		<TextCard title="Morceaux écoutés" icon={Music}>
-			<div class="large-text">{tracksCount}</div>
+			<h2>{tracksCount}</h2>
 		</TextCard>
 
 		<TextCard title="Total Artistes" icon={Users}>
-			<div class="large-text">{artistCount}</div>
+			<h2>{artistCount}</h2>
 		</TextCard>
 
 		<TextCard title="Engagement" icon={Podcast}>
-			<div class="large-text">{subscriptionDuration}</div>
+			<h2>{subscriptionDuration}</h2>
 		</TextCard>
 	</div>
 
@@ -77,10 +77,6 @@
 		gap: 1.5rem;
 	}
 
-	.large-text {
-		font-size: 2rem;
-		font-weight: bold;
-	}
 	.growth-rate {
 		color: #22c55e;
 		display: flex;

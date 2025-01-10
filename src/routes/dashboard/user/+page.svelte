@@ -96,17 +96,17 @@
 
 		<div class="sous-container-right">
 			<TextCard title="Nombres d'utilisateurs">
-				<div class="large-text">{totalNb} M</div>
+				<h2>{totalNb} M</h2>
 				<p>utilisateurs actifs</p>
 			</TextCard>
 
 			<TextCard title="Abonnés premium">
-				<div class="large-text">{totalPremium} M</div>
+				<h2>{totalPremium} M</h2>
 				<div class="growth-rate">
 					<span class="icon">
 						<TrendingUp />
 					</span>
-					<span> 10 % </span>
+					<p>10 %</p>
 				</div>
 			</TextCard>
 
@@ -126,16 +126,12 @@
 			margin-bottom: 2rem;
 		}
 	}
-	.large-text {
-		font-size: 2rem;
-		font-weight: bold;
-	}
+
 	.growth-rate {
 		color: #22c55e;
 		display: flex;
 		align-items: flex-start;
 		gap: 1rem;
-		font-size: 0.875rem;
 	}
 	.icon {
 		width: 1rem;
