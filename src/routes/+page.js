@@ -3,20 +3,21 @@ import { getSummaryStats, getTopStats } from '@/lib/services/api/dataStats.api.t
 import { getPremiumStats } from '@/lib/services/api/userStats.api.ts';
 
 /** @type {import('./$types').PageLoad} */
+
+export const satisfactionLabel = {
+	Ok : "Moyen",
+	Satisfied : "Bon",
+	["Very Satisfied"] : " Excellent",
+	["Very Dissatisfied"] : "Faible",
+	Dissatisfied : "Très faible"      
+}
+
 export async function load() {
 	const yearSummary = await getYearSummary();
 	const summaryStats = await getSummaryStats();
 	const topStats = await getTopStats();
 	const premiumStats = await getPremiumStats();
     const subscriptionDuration = summaryStats.most_common_usage_period === "More than 2 years" ? "+ 2 ans"  : summaryStats.most_common_usage_period
-
-    const satisfactionLabel = {
-        Ok : "Moyen",
-        Satisfied : "Bon",
-        ["Very Satisfied"] : " Excellent",
-        ["Very Dissatisfied"] : "Faible",
-        Dissatisfied : "Très faible"      
-    }
 
 	const subscriptionDoughnutData = {
 		labels: Object.keys(premiumStats.plan_distribution),
