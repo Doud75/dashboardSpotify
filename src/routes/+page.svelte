@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Box from '@/lib/components/ui/Box.svelte';
 	import BarChart from '@/lib/components/widgets/chart/BarChart.svelte';
 	import DoughnutChart from '@/lib/components/widgets/chart/DoughnutChart.svelte';
@@ -7,11 +7,28 @@
 	import { TrendingUp, Music, Podcast, Users, PlayCircle } from 'lucide-svelte';
 
 	/** @type {import('./$types').PageData} */
-	export let data;
+	export let data: {
+		yearSummary: {
+			total_tracks: number;
+			year2024_percentage: number;
+			year2024_count: number;
+			total_unique_artists: number;
+		};
+		summaryStats: object;
+		topStats: {
+			top_10_artists: Array<{
+				artist_name: string;
+				artwork_url: string;
+			}>;
+		};
+		clientSatisfactionBarData: object;
+		preferedContentPieData: object;
+		subscriptionDoughnutData: object;
+		subscriptionDuration: string;
+	};
 
 	const {
 		yearSummary,
-		summaryStats,
 		topStats,
 		clientSatisfactionBarData,
 		preferedContentPieData,
@@ -24,7 +41,7 @@
 	const year2024TracksCount = yearSummary.year2024_count;
 	const artistCount = yearSummary.total_unique_artists;
 
-	const top3Artists = topStats.top_10_artists.splice(0, 3);
+	const top3Artists = topStats.top_10_artists.slice(0, 3);
 </script>
 
 <div class="container">
@@ -51,8 +68,8 @@
 	</div>
 
 	<div class="charts-grid">
-		<DoughnutChart data={subscriptionDoughnutData} title={'Distribution des abonnements'} />
-		<BarChart data={clientSatisfactionBarData} options={{ indexAxis: 'y' }} title={'Satisfaction client'} />
+		<DoughnutChart data={subscriptionDoughnutData} title="Distribution des abonnements" />
+		<BarChart data={clientSatisfactionBarData} options={{ indexAxis: 'y' }} title="Satisfaction client" />
 		<Box>
 			<h3>Top artistes 2024</h3>
 			<div class="top-artists-content">
@@ -66,7 +83,7 @@
 				{/each}
 			</div>
 		</Box>
-		<PieChart data={preferedContentPieData} title={'Préférences de contenu'} />
+		<PieChart data={preferedContentPieData} title="Préférences de contenu" />
 	</div>
 </div>
 

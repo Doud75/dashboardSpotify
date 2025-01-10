@@ -1,23 +1,24 @@
-<script>
+<script lang="ts">
 	import TextCard from '@/lib/components/ui/TextCard.svelte';
 	import BarChart from '@/lib/components/widgets/chart/BarChart.svelte';
 	import DoughnutChart from '@/lib/components/widgets/chart/DoughnutChart.svelte';
 	import PieChart from '@/lib/components/widgets/chart/PieChart.svelte';
 	import RadarChart from '@/lib/components/widgets/chart/RadarChart.svelte';
 	import { TrendingUp } from 'lucide-svelte';
+	import type { ChartOptions } from 'chart.js';
 
 	/** @type {import('./$types').PageData} */
-	export let data;
+	export let data: PageData;
 	let premiumStats = data.premiumStats;
 	let ageBarChartData = data.ageBarChartData;
 	let planDonutChartData = data.planDonutChartData;
 	let genderPieChartData = data.genderPieChartData;
 	let satisfactionRadarChartData = data.satisfactionRadarChartData;
 
-	const totalNb = premiumStats.plan_distribution.Free.count + premiumStats.plan_distribution.Premium.count;
-	const totalPremium = premiumStats.plan_distribution.Premium.count;
+	const totalNb: number = premiumStats.plan_distribution.Free.count + premiumStats.plan_distribution.Premium.count;
+	const totalPremium: number = premiumStats.plan_distribution.Premium.count;
 
-	const barChartOptions = {
+	const barChartOptions: ChartOptions<'bar'> = {
 		scales: {
 			y: {
 				beginAtZero: true,
@@ -35,7 +36,7 @@
 		},
 	};
 
-	const planDonutChartOptions = {
+	const planDonutChartOptions: ChartOptions<'doughnut'> = {
 		plugins: {
 			legend: {
 				display: true,
@@ -48,7 +49,7 @@
 		},
 	};
 
-	const genderPieChartOptions = {
+	const genderPieChartOptions: ChartOptions<'pie'> = {
 		plugins: {
 			legend: {
 				display: true,
@@ -61,7 +62,7 @@
 		},
 	};
 
-	const satisfactionRadarChartOptions = {
+	const satisfactionRadarChartOptions: ChartOptions<'radar'> = {
 		scales: {
 			r: {
 				beginAtZero: true,

@@ -1,11 +1,21 @@
-<script>
+<script lang="ts">
 	import Leaderboard from '$lib/components/ui/Leaderboard.svelte';
 	import PolarAreaChart from '@/lib/components/widgets/chart/PolarAreaChart.svelte';
 	import BarChart from '@/lib/components/widgets/chart/BarChart.svelte';
 	import TextCard from '@/lib/components/ui/TextCard.svelte';
 
 	/** @type {import('./$types').PageData} */
-	export let data;
+	export let data: {
+		topStats: {
+			top_10_songs: Array<{ track_name: string }>;
+			top_10_danceable_songs: Array<{ track_name: string }>;
+		};
+		mostPopularLanguage: string;
+		chartDataPopularity?: object;
+		danceabilityChartData?: object;
+		polarAreaChartOptions?: object;
+		barChartData?: object;
+	};
 </script>
 
 <div class="grid-container">
@@ -13,17 +23,17 @@
 		<div class="header">
 			<TextCard title="Chanson la plus populaire">
 				<div class="large-text">
-					{`${data.topStats.top_10_songs[0].track_name}`}
+					{data.topStats.top_10_songs[0]?.track_name || 'Aucune donnée'}
 				</div>
 			</TextCard>
 			<TextCard title="Langue la plus populaire">
 				<div class="large-text">
-					{data.mostPopularLanguage}
+					{data.mostPopularLanguage || 'Aucune donnée'}
 				</div>
 			</TextCard>
 			<TextCard title="Chanson la plus dansante">
 				<div class="large-text">
-					{`${data.topStats.top_10_danceable_songs[0].track_name}`}
+					{data.topStats.top_10_danceable_songs[0]?.track_name || 'Aucune donnée'}
 				</div>
 			</TextCard>
 		</div>
