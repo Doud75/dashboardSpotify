@@ -3,7 +3,8 @@
 	import BarChart from '@/lib/components/widgets/chart/BarChart.svelte';
 	import DoughnutChart from '@/lib/components/widgets/chart/DoughnutChart.svelte';
 	import PieChart from '@/lib/components/widgets/chart/PieChart.svelte';
-import { TrendingUp, Music, Podcast, Users, PlayCircle } from 'lucide-svelte';
+	import TextCard from '@/lib/components/ui/TextCard.svelte';
+	import { TrendingUp, Music, Podcast, Users, PlayCircle } from 'lucide-svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -28,58 +29,30 @@ import { TrendingUp, Music, Podcast, Users, PlayCircle } from 'lucide-svelte';
 </script>
 
 
-
-<div class="dashboard">
 	<div class="container">
 		<div class="stats-grid">
-			<!-- Nouveauté 2024 -->
-			<Box>
-				<div class="card-header">
-					<h5>Nouveauté 2024</h5>
-					<div class="icon"><PlayCircle /></div>
-				</div>
-				<div class="stats">
+
+			<TextCard title="Nouveauté 2024" icon={PlayCircle}>
 					<div class="large-text">{year2024TracksCount}</div>
 					<div class="growth-rate">
-						<span class="icon">
-							<TrendingUp />
-						</span>
-						<span>
-							{growthRate}%
-						</span>
+						<span class="icon"><TrendingUp /></span>
+						<span>{growthRate}%</span>
 					</div>
-				</div>
-			</Box>
+			</TextCard>
 
-			<!-- Morceaux écoutés -->
-			<Box>
-				<div class="card-header">
-					<h5>Morceaux écoutés</h5>
-					<div class="icon"><Music /></div>
-				</div>
+			<TextCard title="Morceaux écoutés" icon={Music }>
 				<div class="large-text">{tracksCount}</div>
-			</Box>
+			</TextCard>
 
-			<!-- Total Artistes -->
-			<Box>
-				<div class="card-header">
-					<h5>Total Artistes</h5>
-					<div class="icon"><Users /></div>
-				</div>
+			<TextCard title="Total Artistes" icon={Users }>
 				<div class="large-text">{artistCount}</div>
-			</Box>
+			</TextCard>
 
-			<!-- Engagement -->
-			<Box>
-				<div class="card-header">
-					<h5>Engagement </h5>
-					<div class="icon"><Podcast /></div>
-				</div>
+			<TextCard title="Engagement" icon={Podcast}>
 				<div class="large-text">{subscriptionDuration}</div>
-			</Box>
+			</TextCard>
 		</div>
-
-	
+		
 		<div class="charts-grid">
 			<DoughnutChart
 			 	data={subscriptionDoughnutData} 
@@ -111,14 +84,9 @@ import { TrendingUp, Music, Podcast, Users, PlayCircle } from 'lucide-svelte';
 			/>	
 		</div>
 	</div>
-</div>
 
 <style>
-	.dashboard {
-		min-height: 100vh;
-		background-color: #f9fafb;
-		padding: 0.5rem;
-	}
+
 	.container {
 		max-width: 1240px;
 		margin: 0 auto;
@@ -127,13 +95,6 @@ import { TrendingUp, Music, Podcast, Users, PlayCircle } from 'lucide-svelte';
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		gap: 1.5rem;
-	}
-
-	.card-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 8px;
 	}
 
 	.large-text {
