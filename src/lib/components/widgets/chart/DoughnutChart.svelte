@@ -50,8 +50,6 @@
 
 <style>
 	.canvas-container {
-		width: 100%;
-		height: 400px;
-		position: relative;
+		padding-top: 1rem;
 	}
 </style>

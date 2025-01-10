@@ -12,11 +12,11 @@
 	const {
 		yearSummary,
 		summaryStats,
-		topStats ,
-        clientSatisfactionBarData,
-        preferedContentPieData,
-        subscriptionDoughnutData,
-		subscriptionDuration
+		topStats,
+		clientSatisfactionBarData,
+		preferedContentPieData,
+		subscriptionDoughnutData,
+		subscriptionDuration,
 	} = data;
 
 	const tracksCount = yearSummary.total_tracks;
@@ -25,72 +25,52 @@
 	const artistCount = yearSummary.total_unique_artists;
 
 	const top3Artists = topStats.top_10_artists.splice(0, 3);
- 
 </script>
 
+<div class="container">
+	<div class="stats-grid">
+		<TextCard title="Nouveauté 2024" icon={PlayCircle}>
+			<div class="large-text">{year2024TracksCount}</div>
+			<div class="growth-rate">
+				<span class="icon"><TrendingUp /></span>
+				<span>{growthRate}%</span>
+			</div>
+		</TextCard>
 
-	<div class="container">
-		<div class="stats-grid">
+		<TextCard title="Morceaux écoutés" icon={Music}>
+			<div class="large-text">{tracksCount}</div>
+		</TextCard>
 
-			<TextCard title="Nouveauté 2024" icon={PlayCircle}>
-					<div class="large-text">{year2024TracksCount}</div>
-					<div class="growth-rate">
-						<span class="icon"><TrendingUp /></span>
-						<span>{growthRate}%</span>
-					</div>
-			</TextCard>
+		<TextCard title="Total Artistes" icon={Users}>
+			<div class="large-text">{artistCount}</div>
+		</TextCard>
 
-			<TextCard title="Morceaux écoutés" icon={Music }>
-				<div class="large-text">{tracksCount}</div>
-			</TextCard>
-
-			<TextCard title="Total Artistes" icon={Users }>
-				<div class="large-text">{artistCount}</div>
-			</TextCard>
-
-			<TextCard title="Engagement" icon={Podcast}>
-				<div class="large-text">{subscriptionDuration}</div>
-			</TextCard>
-		</div>
-		
-		<div class="charts-grid">
-			<DoughnutChart
-			 	data={subscriptionDoughnutData} 
-				title={'Distribution des abonnements'}
-			/>
-			<BarChart 
-				data={clientSatisfactionBarData} 
-				options={{indexAxis: 'y'}}
-				title = {'Satisfaction client'}
-			/>
-			<Box>
-				<h3>
-					Top artistes 2024
-				</h3>
-				<div class="top-artists-content">
-					{#each top3Artists as artist, i}
-						<div class="top-artist">
-							<img src="{artist.artwork_url}" alt="{artist.artist_name}" width="48" height="48" />
-							<div class="name">{artist.artist_name}</div>
-							<div> {i + 1}</div>
-							<div class="bar" style="height: {120 - i * 20}px;"></div>
-						</div>
-					{/each}
-				</div>
-			</Box>
-			<PieChart 
-				data = {preferedContentPieData}
-				title= {'Préférences de contenu'}
-			/>	
-		</div>
+		<TextCard title="Engagement" icon={Podcast}>
+			<div class="large-text">{subscriptionDuration}</div>
+		</TextCard>
 	</div>
 
-<style>
+	<div class="charts-grid">
+		<DoughnutChart data={subscriptionDoughnutData} title={'Distribution des abonnements'} />
+		<BarChart data={clientSatisfactionBarData} options={{ indexAxis: 'y' }} title={'Satisfaction client'} />
+		<Box>
+			<h3>Top artistes 2024</h3>
+			<div class="top-artists-content">
+				{#each top3Artists as artist, i}
+					<div class="top-artist">
+						<img src={artist.artwork_url} alt={artist.artist_name} width="48" height="48" />
+						<div class="name">{artist.artist_name}</div>
+						<div>{i + 1}</div>
+						<div class="bar" style="height: {120 - i * 20}px;"></div>
+					</div>
+				{/each}
+			</div>
+		</Box>
+		<PieChart data={preferedContentPieData} title={'Préférences de contenu'} />
+	</div>
+</div>
 
-	.container {
-		max-width: 1240px;
-		margin: 0 auto;
-	}
+<style>
 	.stats-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

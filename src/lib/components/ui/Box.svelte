@@ -18,6 +18,8 @@
 		border-radius: 8px;
 		padding: vars.$spacing-md;
 		box-shadow: vars.$box-shadow;
+		height: 100%;
+		width: 100%;
 
 		@include mix.responsive(vars.$breakpoint-mobile) {
 			padding: vars.$spacing-sm;

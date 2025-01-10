@@ -84,41 +84,34 @@
 </script>
 
 <div class="dashboard">
-	<h1 class="dashboard-title">Statistiques utilisateurs</h1>
 	<div class="grid-container">
-		<div class="span-2-4">
-			<BarChart data={ageBarChartData} options={barChartOptions} title={"Abonnements par tranche d'âge (%)"} />
-		</div>
-		<div class="span-1-1">
-			<TextCard title="Nombres d'utilisateurs"			>
-				<div class="large-text">{totalNb} M</div>
-				<p>utilisateurs actifs</p>
-			</TextCard>
-
-		</div>
-		<div class="span-1-1">
-			<TextCard title="Abonnés premium" >
-				<div class="large-text">{totalPremium} M</div>
-					<div class="growth-rate">
-						<span class="icon">
-							<TrendingUp />
-						</span>
-						<span> 10 % </span>
-					</div>
-			</TextCard>
-		</div>
-		<div class="span-1-3">
-			<DoughnutChart data={planDonutChartData} options={planDonutChartOptions} title={'Part des abonnements'} />
-		</div>
-		<div class="span-1-3">
-			<PieChart data={genderPieChartData} options={genderPieChartOptions} title="Répartition par genre" />
-		</div>
-		<div class="span-2-2">
+		<div class="sous-container-left">
 			<RadarChart
 				data={satisfactionRadarChartData}
 				options={satisfactionRadarChartOptions}
 				title="Satisfaction des utilisateurs"
 			/>
+			<BarChart data={ageBarChartData} options={barChartOptions} title={"Abonnements par tranche d'âge (%)"} />
+		</div>
+
+		<div class="sous-container-right">
+			<TextCard title="Nombres d'utilisateurs">
+				<div class="large-text">{totalNb} M</div>
+				<p>utilisateurs actifs</p>
+			</TextCard>
+
+			<TextCard title="Abonnés premium">
+				<div class="large-text">{totalPremium} M</div>
+				<div class="growth-rate">
+					<span class="icon">
+						<TrendingUp />
+					</span>
+					<span> 10 % </span>
+				</div>
+			</TextCard>
+
+			<DoughnutChart data={planDonutChartData} options={planDonutChartOptions} title={'Part des abonnements'} />
+			<PieChart data={genderPieChartData} options={genderPieChartOptions} title="Répartition par genre" />
 		</div>
 	</div>
 </div>
@@ -126,7 +119,6 @@
 <style lang="scss">
 	.dashboard {
 		background-color: #f3f4f6;
-		padding: 0 2rem;
 
 		&-title {
 			font-size: 2.5rem;
@@ -151,22 +143,21 @@
 	}
 	.grid-container {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 1.5rem; // gap-6 equivalent
+		grid-template-columns: repeat(2, calc(50% - 0.75rem));
+		gap: 1.5rem;
 		grid-auto-rows: minmax(100px, auto);
 
-		.span-2-2 {
-			grid-column: span 2;
-			grid-row: span 2;
+		.sous-container-left {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
 		}
 
-		.span-2-4 {
-			grid-column: span 2;
-			grid-row: span 4;
-		}
-		.span-1-3 {
-			grid-column: span 1;
-			grid-row: span 3;
+		.sous-container-right {
+			display: grid;
+			grid-template-columns: repeat(2, calc(50% - 0.75rem));
+			grid-template-rows: auto 1fr;
+			gap: 1.5rem;
 		}
 	}
 </style>

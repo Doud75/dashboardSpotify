@@ -40,7 +40,7 @@
 
 <Box>
 	{#if title}
-		<h3>{title}</h3>
+		<h3 cl>{title}</h3>
 	{/if}
 	<div class="canvas-container">
 		<canvas bind:this={canvas} use:createChart></canvas>
@@ -49,8 +49,7 @@
 
 <style>
 	.canvas-container {
-		width: 100%;
-		height: 400px;
+		padding-top: 1rem;
 		position: relative;
 	}
 </style>
