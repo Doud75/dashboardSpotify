@@ -31,33 +31,29 @@
 <div class="container">
 	<div class="stats-grid">
 		<TextCard title="Nouveauté 2024" icon={PlayCircle}>
-			<h2>{year2024TracksCount}</h2>
+			<div class="large-text">{year2024TracksCount}</div>
 			<div class="growth-rate">
 				<span class="icon"><TrendingUp /></span>
-				<p>{growthRate}%</p>
+				<span>{growthRate}%</span>
 			</div>
 		</TextCard>
 
 		<TextCard title="Morceaux écoutés" icon={Music}>
-			<h2>{tracksCount}</h2>
+			<div class="large-text">{tracksCount}</div>
 		</TextCard>
 
 		<TextCard title="Total Artistes" icon={Users}>
-			<h2>{artistCount}</h2>
+			<div class="large-text">{artistCount}</div>
 		</TextCard>
 
 		<TextCard title="Engagement" icon={Podcast}>
-			<h2>{subscriptionDuration}</h2>
+			<div class="large-text">{subscriptionDuration}</div>
 		</TextCard>
 	</div>
 
 	<div class="charts-grid">
 		<DoughnutChart data={subscriptionDoughnutData} title={'Distribution des abonnements'} />
-		<BarChart
-			data={clientSatisfactionBarData}
-			options={{ indexAxis: 'y', plugins: { legend: { display: false } } }}
-			title={'Satisfaction client'}
-		/>
+		<BarChart data={clientSatisfactionBarData} options={{ indexAxis: 'y', plugins:{legend:{display:false}} }} title={'Satisfaction client'} />
 		<Box>
 			<h3>Top artistes 2024</h3>
 			<div class="top-artists-content">
@@ -82,6 +78,10 @@
 		gap: 1.5rem;
 	}
 
+	.large-text {
+		font-size: 2rem;
+		font-weight: bold;
+	}
 	.growth-rate {
 		color: #22c55e;
 		display: flex;

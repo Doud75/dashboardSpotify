@@ -4,7 +4,7 @@
 	import DoughnutChart from '@/lib/components/widgets/chart/DoughnutChart.svelte';
 	import PieChart from '@/lib/components/widgets/chart/PieChart.svelte';
 	import RadarChart from '@/lib/components/widgets/chart/RadarChart.svelte';
-	import { TrendingUp } from 'lucide-svelte';
+	import { DiamondIcon, Gem, LucideDiamond, TrendingUp, User, User2 } from 'lucide-svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -95,12 +95,12 @@
 		</div>
 
 		<div class="sous-container-right">
-			<TextCard title="Nombres d'utilisateurs">
+			<TextCard title="Nombres d'utilisateurs" icon = {User2}>
 				<h2>{totalNb} M</h2>
 				<p>utilisateurs actifs</p>
 			</TextCard>
 
-			<TextCard title="Abonnés premium">
+			<TextCard title="Abonnés premium" icon = {Gem}>
 				<h2>{totalPremium} M</h2>
 				<div class="growth-rate">
 					<span class="icon">
@@ -117,31 +117,19 @@
 </div>
 
 <style lang="scss">
-	.dashboard {
-		background-color: #f3f4f6;
+	@use '@/styles/variables' as vars;
+	@use '@/styles/mixins' as mixins;
 
-		&-title {
-			font-size: 2.5rem;
-			font-weight: bold;
-			margin-bottom: 2rem;
-		}
-	}
-
-	.growth-rate {
-		color: #22c55e;
-		display: flex;
-		align-items: flex-start;
-		gap: 1rem;
-	}
-	.icon {
-		width: 1rem;
-		height: 1rem;
-	}
 	.grid-container {
 		display: grid;
 		grid-template-columns: repeat(2, calc(50% - 0.75rem));
 		gap: 1.5rem;
 		grid-auto-rows: minmax(100px, auto);
+
+		@include mixins.responsive(vars.$breakpoint-tablet) {
+			display: flex;
+			flex-direction: column;
+		}
 
 		.sous-container-left {
 			display: flex;
@@ -155,5 +143,17 @@
 			grid-template-rows: auto 1fr;
 			gap: 1.5rem;
 		}
+	}
+
+	.growth-rate {
+		color: vars.$success-color;
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+	.icon {
+		width: 1rem;
+		height: 1rem;
 	}
 </style>
