@@ -39,17 +39,24 @@
 </script>
 
 <Box>
-	{#if title}
-		<h3 cl>{title}</h3>
-	{/if}
-	<div class="canvas-container">
-		<canvas bind:this={canvas} use:createChart></canvas>
+	<div class="box-chart">
+		{#if title}
+			<h3 cl>{title}</h3>
+		{/if}
+		<div class="canvas-container">
+			<canvas bind:this={canvas} use:createChart></canvas>
+		</div>
 	</div>
 </Box>
 
 <style>
+	.box-chart {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
+	}
 	.canvas-container {
-		padding-top: 1rem;
-		position: relative;
+		flex: 1;
 	}
 </style>
