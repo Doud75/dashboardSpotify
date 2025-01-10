@@ -4,6 +4,7 @@
 	import DoughnutChart from '@/lib/components/widgets/chart/DoughnutChart.svelte';
 	import PieChart from '@/lib/components/widgets/chart/PieChart.svelte';
 	import RadarChart from '@/lib/components/widgets/chart/RadarChart.svelte';
+	import { TrendingUp } from 'lucide-svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -89,10 +90,22 @@
 			<BarChart data={ageBarChartData} options={barChartOptions} title={"Abonnements par tranche d'âge (%)"} />
 		</div>
 		<div class="span-1-1">
-			<TextCard title="Nombres d'utilisateurs" value="{totalNb} M" description="Utilisateurs actifs en 2024" />
+			<TextCard title="Nombres d'utilisateurs"			>
+				<div class="large-text">{totalNb} M</div>
+				<p>utilisateurs actifs</p>
+			</TextCard>
+
 		</div>
 		<div class="span-1-1">
-			<TextCard title="Abonnés premium" value="{totalPremium} M" description="Augmentation de 10%" />
+			<TextCard title="Abonnés premium" >
+				<div class="large-text">{totalPremium} M</div>
+					<div class="growth-rate">
+						<span class="icon">
+							<TrendingUp />
+						</span>
+						<span> 10 % </span>
+					</div>
+			</TextCard>
 		</div>
 		<div class="span-1-3">
 			<DoughnutChart data={planDonutChartData} options={planDonutChartOptions} title={'Part des abonnements'} />
@@ -121,7 +134,21 @@
 			margin-bottom: 2rem;
 		}
 	}
-
+	.large-text {
+		font-size: 2rem;
+		font-weight: bold;
+	}
+	.growth-rate {
+		color: #22c55e;
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		font-size: 0.875rem;
+	}
+	.icon {
+		width: 1rem;
+		height: 1rem;
+	}
 	.grid-container {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
