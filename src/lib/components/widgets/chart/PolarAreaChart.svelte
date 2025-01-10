@@ -18,6 +18,11 @@
 			type: 'polarArea',
 			data,
 			options: {
+				plugins: {
+					legend: {
+						position: 'bottom',
+					},
+				},
 				...options,
 				responsive: true,
 				maintainAspectRatio: false,

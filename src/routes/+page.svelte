@@ -52,7 +52,16 @@
 
 	<div class="charts-grid">
 		<DoughnutChart data={subscriptionDoughnutData} title={'Distribution des abonnements'} />
-		<BarChart data={clientSatisfactionBarData} options={{ indexAxis: 'y' }} title={'Satisfaction client'} />
+		<BarChart
+			data={clientSatisfactionBarData}
+			options={{
+				indexAxis: 'y',
+				plugins: {
+					legend: { display: false },
+				},
+			}}
+			title={'Satisfaction client'}
+		/>
 		<Box>
 			<h3>Top artistes 2024</h3>
 			<div class="top-artists-content">

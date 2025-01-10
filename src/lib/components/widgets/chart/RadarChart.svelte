@@ -27,10 +27,15 @@
 			type: 'radar',
 			data,
 			options: {
-				...options,
-				responsive: true,
-				maintainAspectRatio: false,
+				plugins: {
+					legend: {
+						position: 'bottom',
+					},
+				},
 			},
+			...options,
+			responsive: true,
+			maintainAspectRatio: false,
 		});
 
 		return {

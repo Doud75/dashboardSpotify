@@ -17,6 +17,11 @@
 			type: 'bar',
 			data,
 			options: {
+				plugins: {
+					legend: {
+						position: 'bottom',
+					},
+				},
 				...options,
 				responsive: true,
 				maintainAspectRatio: false,
@@ -39,17 +44,24 @@
 </script>
 
 <Box>
-	{#if title}
-		<h3 cl>{title}</h3>
-	{/if}
-	<div class="canvas-container">
-		<canvas bind:this={canvas} use:createChart></canvas>
+	<div class="box-chart">
+		{#if title}
+			<h3 cl>{title}</h3>
+		{/if}
+		<div class="canvas-container">
+			<canvas bind:this={canvas} use:createChart></canvas>
+		</div>
 	</div>
 </Box>
 
 <style>
+	.box-chart {
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
 	.canvas-container {
-		padding-top: 1rem;
-		position: relative;
+		flex: 1;
 	}
 </style>

@@ -21,6 +21,11 @@
 				...options,
 				responsive: true,
 				maintainAspectRatio: false,
+				plugins: {
+					legend: {
+						position: 'bottom',
+					},
+				},
 			},
 		});
 
@@ -40,16 +45,24 @@
 </script>
 
 <Box>
-	{#if title}
-		<h3>{title}</h3>
-	{/if}
-	<div class="canvas-container">
-		<canvas bind:this={canvas} use:createChart></canvas>
+	<div class="box-chart">
+		{#if title}
+			<h3>{title}</h3>
+		{/if}
+		<div class="canvas-container">
+			<canvas bind:this={canvas} use:createChart></canvas>
+		</div>
 	</div>
 </Box>
 
 <style>
+	.box-chart {
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
 	.canvas-container {
-		padding-top: 1rem;
+		flex: 1;
 	}
 </style>
