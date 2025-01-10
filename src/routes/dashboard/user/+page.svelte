@@ -4,7 +4,7 @@
 	import DoughnutChart from '@/lib/components/widgets/chart/DoughnutChart.svelte';
 	import PieChart from '@/lib/components/widgets/chart/PieChart.svelte';
 	import RadarChart from '@/lib/components/widgets/chart/RadarChart.svelte';
-	import { TrendingUp } from 'lucide-svelte';
+	import { DiamondIcon, Gem, LucideDiamond, TrendingUp, User, User2 } from 'lucide-svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -95,12 +95,12 @@
 		</div>
 
 		<div class="sous-container-right">
-			<TextCard title="Nombres d'utilisateurs">
+			<TextCard title="Nombres d'utilisateurs" icon = {User2}>
 				<h2>{totalNb} M</h2>
 				<p>utilisateurs actifs</p>
 			</TextCard>
 
-			<TextCard title="Abonnés premium">
+			<TextCard title="Abonnés premium" icon = {Gem}>
 				<h2>{totalPremium} M</h2>
 				<div class="growth-rate">
 					<span class="icon">

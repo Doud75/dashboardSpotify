@@ -3,6 +3,8 @@
 	import PolarAreaChart from '@/lib/components/widgets/chart/PolarAreaChart.svelte';
 	import BarChart from '@/lib/components/widgets/chart/BarChart.svelte';
 	import TextCard from '@/lib/components/ui/TextCard.svelte';
+	import { Globe, LucideMoveUpLeft, MapIcon, Music, PartyPopper } from 'lucide-svelte';
+	import { plugins } from 'chart.js';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -10,17 +12,17 @@
 
 <div class="grid-container">
 	<div class="header">
-		<TextCard title="Chanson la plus populaire">
+		<TextCard title="Chanson la plus populaire" icon={Music}>
 			<h4>
 				{`${data.topStats.top_10_songs[0].track_name}`}
 			</h4>
 		</TextCard>
-		<TextCard title="Langue la plus populaire">
+		<TextCard title="Langue la plus populaire" icon ={Globe}>
 			<h4>
 				{data.mostPopularLanguage}
 			</h4>
 		</TextCard>
-		<TextCard title="Chanson la plus dansante">
+		<TextCard title="Chanson la plus dansante" icon={PartyPopper}>
 			<h4>
 				{`${data.topStats.top_10_danceable_songs[0].track_name}`}
 			</h4>
@@ -50,7 +52,7 @@
 
 	<div class="main-bottom">
 		{#if data.barChartData}
-			<BarChart data={data.barChartData} title="Acousticness moyenne par tranche de popularité" />
+			<BarChart data={data.barChartData} options={{plugins:{legend:{display:false}}}} title="Acousticness moyenne par tranche de popularité" />
 		{:else}
 			<p>Aucune donnée disponible pour le graphique.</p>
 		{/if}

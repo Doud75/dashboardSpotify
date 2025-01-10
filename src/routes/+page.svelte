@@ -5,6 +5,7 @@
 	import PieChart from '@/lib/components/widgets/chart/PieChart.svelte';
 	import TextCard from '@/lib/components/ui/TextCard.svelte';
 	import { TrendingUp, Music, Podcast, Users, PlayCircle } from 'lucide-svelte';
+	import { plugins } from 'chart.js';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -52,7 +53,7 @@
 
 	<div class="charts-grid">
 		<DoughnutChart data={subscriptionDoughnutData} title={'Distribution des abonnements'} />
-		<BarChart data={clientSatisfactionBarData} options={{ indexAxis: 'y' }} title={'Satisfaction client'} />
+		<BarChart data={clientSatisfactionBarData} options={{ indexAxis: 'y', plugins:{legend:{display:false}} }} title={'Satisfaction client'} />
 		<Box>
 			<h3>Top artistes 2024</h3>
 			<div class="top-artists-content">
@@ -94,7 +95,7 @@
 	}
 	.charts-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(625px, 1fr));
 		gap: 24px;
 		margin-top: 24px;
 	}
