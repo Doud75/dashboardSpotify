@@ -33,8 +33,8 @@ export async function load() {
 				label: 'Distribution des abonnements',
 				data: Object.values(premiumStats.plan_distribution).map(plan => plan.count),
 				backgroundColor: [
-					'rgba(54, 162, 235, 0.5)',  // Bleu pour Free
-					'rgba(153, 102, 255, 0.5)'  // Violet pour Premium
+					'rgba(54, 162, 235, 0.5)',
+					'rgba(153, 102, 255, 0.5)'
 				],
 				borderColor: [
 					'rgba(54, 162, 235, 1)',
@@ -52,9 +52,9 @@ export async function load() {
 				label: 'Distribution par genre',
 				data: Object.values(genderStats.gender_stats).map(gender => gender.global_percentage),
 				backgroundColor: [
-					'rgba(54, 162, 235, 0.5)',  // Bleu pour Male
-					'rgba(255, 99, 132, 0.5)',  // Rose pour Female
-					'rgba(255, 206, 86, 0.5)'   // Jaune pour Others
+					'rgba(54, 162, 235, 0.5)',
+					'rgba(255, 99, 132, 0.5)',
+					'rgba(255, 206, 86, 0.5)'
 				],
 				borderColor: [
 					'rgba(54, 162, 235, 1)',

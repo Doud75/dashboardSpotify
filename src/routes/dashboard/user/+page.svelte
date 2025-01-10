@@ -86,7 +86,7 @@
 	<h1 class="dashboard-title">Statistiques utilisateurs</h1>
 	<div class="grid-container">
 		<div class="span-2-4">
-			<BarChart data={ageBarChartData} options={barChartOptions} />
+			<BarChart data={ageBarChartData} options={barChartOptions} title={"Abonnements par tranche d'âge (%)"} />
 		</div>
 		<div class="span-1-1">
 			<TextCard title="Nombres d'utilisateurs" value="{totalNb} M" description="Utilisateurs actifs en 2024" />
@@ -95,13 +95,17 @@
 			<TextCard title="Abonnés premium" value="{totalPremium} M" description="Augmentation de 10%" />
 		</div>
 		<div class="span-1-3">
-			<DoughnutChart data={planDonutChartData} options={planDonutChartOptions} />
+			<DoughnutChart data={planDonutChartData} options={planDonutChartOptions} title={'Part des abonnements'} />
 		</div>
 		<div class="span-1-3">
-			<PieChart data={genderPieChartData} options={genderPieChartOptions} />
+			<PieChart data={genderPieChartData} options={genderPieChartOptions} title="Répartition par genre" />
 		</div>
 		<div class="span-2-2">
-			<RadarChart data={satisfactionRadarChartData} options={satisfactionRadarChartOptions} />
+			<RadarChart
+				data={satisfactionRadarChartData}
+				options={satisfactionRadarChartOptions}
+				title="Satisfaction des utilisateurs"
+			/>
 		</div>
 	</div>
 </div>
